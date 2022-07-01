@@ -2,9 +2,14 @@ import sys
 import numpy as np
 from numpy.random import Generator, SeedSequence, PCG64
 import hashlib
+import random
+from datetime import datetime
 
 
-def get_rng(seed: str, verbose=False):
+
+def get_rng(seed='', verbose=False):
+    if seed is None:
+        seed = random.seed(datetime.now())
     """Generate a random number generator based on a seed string."""
     # Over python iteration the traditional hash was changed. So, here we fix it to md5
     hash = hashlib.md5(seed.encode("utf-8")).hexdigest()  # Convert string to a hash
